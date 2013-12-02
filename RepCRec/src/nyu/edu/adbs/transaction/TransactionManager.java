@@ -202,6 +202,15 @@ public class TransactionManager {
           writeToStreamln(output);
           return;
         }
+        for (Transaction trans : transactionLockMap.keySet()) {
+        	if (trans.getTimestamp() < transaction.getTimestamp()) {
+        		String output = new StringBuilder("Read/Write Transaction ")
+                	.append(transactionName).append(" aborted by wait-die.").toString();
+        		writeToStreamln(output);
+        		abort(transaction, timestamp);
+        		return;
+        	}
+        }
         
         transactionLockMap.put(transaction, lock);
 
@@ -258,6 +267,15 @@ public class TransactionManager {
           writeToStreamln("Blocked transaction can be blocked"
               + "on just one operation");
           return;
+        }
+        for (Transaction trans : transactionLockMap.keySet()) {
+        	if (trans.getTimestamp() < transaction.getTimestamp()) {
+        		String output = new StringBuilder("Read/Write Transaction ")
+                	.append(transactionName).append(" aborted by wait-die.").toString();
+        		writeToStreamln(output);
+        		abort(transaction, timestamp);
+        		return;
+        	}
         }
         lock.setWriteOperation(new WriteOperation(variableName, value));
         transactionLockMap.put(transaction, lock);
