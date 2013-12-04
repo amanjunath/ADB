@@ -81,7 +81,7 @@ public class LockManager {
       return new Lock(transaction, Lock.Type.WRITE, Lock.Status.ACCEPT);
     }
     for( Transaction transactionOnReadLock : transactionsOnReadLock ) {
-      if( transactionOnReadLock.getTimestamp() <= transaction.getTimestamp() ) {
+      if( transactionOnReadLock.getTimestamp() < transaction.getTimestamp() ) {
         return new Lock(transaction, Lock.Type.WRITE, Lock.Status.DENY);
       }
     }
