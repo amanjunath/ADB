@@ -66,7 +66,7 @@ public class TransactionManager {
     boolean variableFound = false;
     for( String variableName : variableSitesMap.keySet() ) {
       for( Site site : variableSitesMap.get(variableName) ) {
-        if( site.isActive() ) {
+        if( site.isActive() && !siteManager.isVariableDirtyAtSite(variableName, site)) {
           variableValuesOld.put(variableName, site.readOld(variableName));
           variableFound = true;
           break;
