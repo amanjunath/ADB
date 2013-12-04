@@ -13,11 +13,11 @@ public class TransactionExecutor {
   private Map<Integer, Site> siteMap;
   private TransactionManager transactionManager;
   private File inputFile;
-  private File outputFile;
+  //private File outputFile;
   
   public TransactionExecutor(File inputFile, File outputFile) {
     this.inputFile = inputFile;
-    this.outputFile = outputFile;
+    //this.outputFile = outputFile;
     siteMap = SitesInitializer.getInstance().getSiteMap();
     //transactionManager = new TransactionManager(new FileOutputStream(outputFile));
     transactionManager = new TransactionManager(siteMap, 

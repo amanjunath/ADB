@@ -13,8 +13,6 @@ public class Site {
   private boolean isActive;
   private Map<String, Variable> variableMap;
   private Map<String, Variable> oldVariableMap;
-  private Map<String, Transaction> writeLockTable;
-  private Map<String, Set<Transaction>> readLockTable;
   private Long lastFailedTime;
   
   public Long getLastFailedTime() {
@@ -58,8 +56,6 @@ public class Site {
     for(Variable variable : variableMap.values() ) {
       oldVariableMap.put(variable.getVariableName(), new Variable(variable));
     }
-    this.readLockTable = readLockTable;
-    this.writeLockTable = writeLockTable;
   }
   
   public int getSiteId() {
@@ -78,19 +74,6 @@ public class Site {
   public void recover() {
     isActive = true;
   }
-  
-  public void commit() {
-    
-  }
-  
-  public void abort() {
-    
-  }
-  
-  public void dump() {
-    
-  }
-  
   
   /**
    * 
@@ -132,30 +115,6 @@ public class Site {
   public void commit(String variableName) {
     Variable variable = oldVariableMap.get(variableName);
     variable.setValue(variableMap.get(variableName).getValue()); 
-  }
-  
-  public void acquireReadLock(String variableName) {
-
-  }
-  
-  public void acquireWriteLock(String variableName) {
-    
-  }
-  
-  public void releaseReadLock(String variableName) {
-    
-  }
-  
-  public void releaseWriteLock(String variableName) {
-    
-  }
-  
-  public void acquireReadOnlyLock(String variableName) {
-    
-  }
-  
-  public void releaseReadOnlyLock(String variableName) {
-    
   }
   
   @Override
