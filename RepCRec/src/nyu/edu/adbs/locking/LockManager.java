@@ -65,7 +65,7 @@ public class LockManager {
       return new Lock(transaction, Lock.Type.WRITE, Lock.Status.DENY);
     }
     Set<Transaction> transactionsOnReadLock = readLocks.get(variableName);
-    if( transactionsOnReadLock == null || 
+    if( transactionsOnReadLock == null || transactionsOnReadLock.size() == 0 ||
         (transactionsOnReadLock.contains(transaction) &&
             transactionsOnReadLock.size() == 1) ) {
       writeLocks.put(variableName, transaction);
